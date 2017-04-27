@@ -1,28 +1,3 @@
-var count = 0;
-
-var addPowerListener = () => {
-  var powerButton = document.getElementById('power-button');
-  var togglePowerButton = togglePower();
-  powerButton.addEventListener('click', togglePowerButton);
-}
-
-var toggleFunction = (func) => {
-  var toggle = false;
-
-  return () => {
-    if (toggle) {
-      // clear count
-      // clear any caches
-      console.log('off');
-      toggle = false;
-    } else {
-      // begin generating a pattern
-      console.log('on');
-      toggle = true;
-    }
-  };
-}
-
 var togglePower = () => {
   var toggle = false;
   var countDisplay = document.getElementById('count');
@@ -45,7 +20,7 @@ var togglePower = () => {
       if (strictStatus.style.backgroundColor === 'red') {
         toggleStrictButton(strictStatus);
       }
-      
+
       powerDown(countDisplay, powerStatus);
 
       startButton.removeEventListener('click', toggleStartButton);
@@ -94,6 +69,7 @@ var startToggle = (startStatus) => {
 
 var strictToggle = (strictStatus) => {
   var strictSwitch = false;
+  
   return () => {
     if (strictSwitch) {
       strictStatus.style.backgroundColor = '#333';
@@ -104,5 +80,3 @@ var strictToggle = (strictStatus) => {
     }
   }
 }
-
-document.addEventListener('DOMContentLoaded', addPowerListener);
