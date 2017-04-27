@@ -100,8 +100,8 @@ body {
 }
 
 #power-status, #start-status, #strict-status {
-  height: 10px;
-  width: 10px;
+  height: 5px;
+  width: 5px;
   border-radius: 100%;
   border: 2px solid black;
   background-color: #333;
@@ -115,7 +115,7 @@ body {
 #power-button, #start-button, #strict-button {
   width: 20px;
   height: 20px;
-  box-shadow: 2px 2px 2px #333;
+  box-shadow: 2px 2px 2px #aeaeae;
   border: 3px solid #333;
   border-radius: 100%
 }
