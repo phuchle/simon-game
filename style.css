@@ -1,4 +1,5 @@
 body {
+  font-family: sans-serif;
   color: #333;
 }
 
@@ -55,7 +56,7 @@ body {
 #controls {
   position:absolute;
   left: 50%;
-  top: 45%;
+  top: 35%;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -69,7 +70,7 @@ body {
 }
 
 #title {
-  font-size: 2em;
+  font-size: 3em;
 }
 
 @media screen and (max-width: 500px) {
