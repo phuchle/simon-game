@@ -38,7 +38,7 @@ body {
 }
 
 #yellow {
-  background-color: yellow;
+  background-color: #ffe400;
   border-bottom-left-radius: 100%;
 }
 
@@ -59,7 +59,7 @@ body {
 #controls {
   position:absolute;
   left: 50%;
-  top: 37%;
+  top: 35%;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -110,6 +110,7 @@ body {
 #power-button:active, #start-button:active, #strict-button:active {
   box-shadow: none;
 }
+
 #power-button, #start-button, #strict-button {
   width: 20px;
   height: 20px;
@@ -128,13 +129,13 @@ body {
 }
 
 #strict-button {
-  background-color: yellow;
+  background-color: #ffe400;
 }
 
 #count {
   width: 50px;
   height: 25px;
-  color: red;
+  color: #950000;
   background-color: #520000;
   display: flex;
   align-items: center;
