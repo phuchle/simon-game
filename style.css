@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
   color: #333;
+  background-color: #ffe3bf;
 }
 
 #outer-container {
@@ -44,7 +45,7 @@ body {
 }
 
 #blue {
-  background-color: #0062ff;
+  background-color: #0079ff;
   border-bottom-right-radius: 100%;
 }
 
@@ -118,8 +119,7 @@ body {
 }
 
 #power-button {
-  background-color: #0062ff;
-
+  background-color: #0079ff;
 }
 
 #start-button {

@@ -58,6 +58,6 @@ var addBlueListeners = () => {
     blueSound.play();
   });
   blue.addEventListener('mouseup', () => {
-    blue.style.backgroundColor = '#0062ff';
+    blue.style.backgroundColor = '#0079ff';
   });
 }
