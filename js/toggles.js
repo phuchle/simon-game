@@ -1,17 +1,17 @@
-var togglePower = () => {
-  var toggle = false;
-  var countDisplay = document.getElementById('count');
-  var startButton = document.getElementById('start-button');
-  var strictButton = document.getElementById('strict-button');
+function togglePower() {
+  let toggle = false;
+  let countDisplay = document.getElementById('count');
+  let startButton = document.getElementById('start-button');
+  let strictButton = document.getElementById('strict-button');
 
-  var powerStatus = document.getElementById('power-status');
-  var startStatus = document.getElementById('start-status');
-  var strictStatus = document.getElementById('strict-status');
+  let powerStatus = document.getElementById('power-status');
+  let startStatus = document.getElementById('start-status');
+  let strictStatus = document.getElementById('strict-status');
 
-  var toggleStartButton = startToggle(startStatus);
-  var toggleStrictButton = strictToggle(strictStatus);
+  let toggleStartButton = startToggle(startStatus);
+  let toggleStrictButton = strictToggle(strictStatus);
 
-  return () => {
+  return function() {
     if (toggle) {
       // clear any caches
       if (startStatus.style.backgroundColor === 'red') {
@@ -39,23 +39,23 @@ var togglePower = () => {
   };
 }
 
-var powerDown = (countDisplay, powerStatus) => {
+function powerDown(countDisplay, powerStatus) {
   count = 0;
   countDisplay.style.color = '#950000'
   countDisplay.innerText = '-';
   powerStatus.style.backgroundColor = '#333';
 }
 
-var powerUp = (countDisplay, powerStatus) => {
+function powerUp(countDisplay, powerStatus) {
   countDisplay.style.color = 'red';
 
   powerStatus.style.backgroundColor = 'red';
 }
 
-var startToggle = (startStatus) => {
-  var startSwitch = false;
+function startToggle(startStatus) {
+  let startSwitch = false;
 
-  return () => {
+  return function() {
     if (startSwitch) {
       startStatus.style.backgroundColor = '#333';
       startSwitch = false;
@@ -67,10 +67,10 @@ var startToggle = (startStatus) => {
   }
 }
 
-var strictToggle = (strictStatus) => {
-  var strictSwitch = false;
+function strictToggle(strictStatus) {
+  let strictSwitch = false;
 
-  return () => {
+  return function() {
     if (strictSwitch) {
       strictStatus.style.backgroundColor = '#333';
       strictSwitch = false;

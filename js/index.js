@@ -1,8 +1,8 @@
-var count = 1;
+let count = 1;
 
-var addPowerListener = () => {
-  var powerButton = document.getElementById('power-button');
-  var togglePowerButton = togglePower();
+function addPowerListener() {
+  let powerButton = document.getElementById('power-button');
+  let togglePowerButton = togglePower();
   powerButton.addEventListener('click', togglePowerButton);
 }
 
