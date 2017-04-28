@@ -48,9 +48,6 @@ body {
   border-bottom-right-radius: 100%;
 }
 
-#green:active, #red:active, #yellow:active, #blue:active {
-  background-image: url('img/buttonbg.png');
-}
 #green, #red, #yellow, #blue {
   height: 200px;
   width: 200px;
@@ -143,6 +140,7 @@ body {
   justify-content: center;
   border: 2px solid black;
   border-radius: 5px;
+  font-size: 1.5em;
 }
 
 @media screen and (max-width: 500px) {

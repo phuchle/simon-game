@@ -28,7 +28,7 @@ var togglePower = () => {
 
       toggle = false;
     } else {
-      // add listeners to other butons
+      //
       powerUp(countDisplay, powerStatus);
 
       startButton.addEventListener('click', toggleStartButton);
@@ -42,13 +42,12 @@ var togglePower = () => {
 var powerDown = (countDisplay, powerStatus) => {
   count = 0;
   countDisplay.style.color = '#950000'
-  countDisplay.innerText = '--';
+  countDisplay.innerText = '-';
   powerStatus.style.backgroundColor = '#333';
 }
 
 var powerUp = (countDisplay, powerStatus) => {
   countDisplay.style.color = 'red';
-  countDisplay.innerText = count;
 
   powerStatus.style.backgroundColor = 'red';
 }
@@ -62,6 +61,7 @@ var startToggle = (startStatus) => {
       startSwitch = false;
     } else {
       startStatus.style.backgroundColor = 'red';
+      startGameplay();
       startSwitch = true;
     }
   }
@@ -69,7 +69,7 @@ var startToggle = (startStatus) => {
 
 var strictToggle = (strictStatus) => {
   var strictSwitch = false;
-  
+
   return () => {
     if (strictSwitch) {
       strictStatus.style.backgroundColor = '#333';

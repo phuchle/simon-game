@@ -1,4 +1,4 @@
-var count = 0;
+var count = 1;
 
 var addPowerListener = () => {
   var powerButton = document.getElementById('power-button');
