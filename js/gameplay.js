@@ -1,6 +1,7 @@
 let pattern = [];
 let userPattern = [];
 let inputTimeout;
+let strict = false;
 
 const colors = ['green', 'red', 'yellow', 'blue'];
 const sounds = {
@@ -10,6 +11,21 @@ const sounds = {
   blue: new Audio('sounds/simonSound4.mp3'),
   wrongAnswer: new Audio('sounds/wrongAnswer.mp3')
 };
+
+const divs = {
+  green: function() {
+    return document.getElementById('green');
+  },
+  red: function() {
+    return document.getElementById('red');
+  },
+  yellow: function() {
+    return document.getElementById('yellow');
+  },
+  blue: function() {
+    return document.getElementById('blue');
+  }
+}
 
 const click = {
   green: function (target) {
@@ -67,10 +83,26 @@ function setPlayThroughInterval() {
 }
 
 function activateGameButtons() {
-  addGreenListeners();
-  addRedListeners();
-  addYellowListeners();
-  addBlueListeners();
+  let colorDivs = [divs.green(), divs.red(), divs.yellow(), divs.blue()];
+
+  colorDivs.forEach(div => {
+    div.addEventListener('click', gameButtonClick);
+  });
+}
+
+function gameButtonClick(e) {
+  userPattern.push(e.target.id);
+  click[e.target.id](e.target);
+  window.clearTimeout(inputTimeout);
+  checkUserPattern();
+}
+
+function deactivateGameButtons() {
+  let colorDivs = [divs.green(), divs.red(), divs.yellow(), divs.blue()];
+
+  colorDivs.forEach(div => {
+    div.removeEventListener('click', gameButtonClick);
+  });
 }
 
 function checkUserPattern() {
