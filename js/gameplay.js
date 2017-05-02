@@ -43,39 +43,30 @@ const click = {
 };
 
 function startGameplay() {
-  // randomly picks a color and adds it the pattern
-  // plays the pattern
-  // waits for user input
-  // when lengths are the same, compares patterns
-  // if correct, loop back
   activateGameButtons();
   makePattern();
+  setPlayThroughInterval();
 }
 
 function makePattern() {
   let nextColor = colors[Math.floor(Math.random() * colors.length)];
   pattern.push(nextColor);
-  setPlayThroughInterval();
 }
 
 function setPlayThroughInterval() {
-  let playThroughCount = 0;
+  let i = 0;
+  let patternInterval = window.setInterval(() => {
+    let targetButton = document.getElementById(pattern[i]);
+    click[pattern[i]](targetButton);
+    i++
 
-  let playThrough = window.setInterval( () => {
-    let targetColor = pattern[playThroughCount];
-    var targetButton = document.getElementById(targetColor);
-    click[targetColor](targetButton);
-
-    playThroughCount++;
-
-    if (playThroughCount === pattern.length) {
-      window.clearInterval(playThrough);
+    if (i === pattern.length) {
+      window.clearInterval(patternInterval);
     }
-  }, 1000);
+  }, 1250);
 }
 
 function activateGameButtons() {
-  addGameButtonLights();
   addGreenListeners();
   addRedListeners();
   addYellowListeners();
@@ -83,9 +74,7 @@ function activateGameButtons() {
 }
 
 function checkUserPattern() {
-  // if (userPattern.length === pattern.length) {
-  //   window.clearTimeout(inputTimeout);
-
+  if (userPattern.length === pattern.length) {
     if (isCurrentUserPatternCorrect()) {
       userPattern = [];
       makePattern();
@@ -93,10 +82,17 @@ function checkUserPattern() {
       setPlayThroughInterval();
     } else {
       sounds.wrongAnswer.play();
+      userPattern = [];
       setPlayThroughInterval();
     }
+  } else {
+    if (!isCurrentUserPatternCorrect()) {
+      sounds.wrongAnswer.play();
+      userPattern = [];
+      setPlayThroughInterval();
+    }
+  }
 }
-// }
 
 function isCurrentUserPatternCorrect() {
   let verdict = true;

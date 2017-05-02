@@ -1,24 +1,3 @@
-function addGameButtonLights() {
-  colors.forEach(color => {
-    let docBody = document.body;
-    let targetButton = document.getElementById(color);
-
-    if (docBody.classList) { // modern browser
-      targetButton.classList.add('clickable');
-    } else { // IE8 support
-      targetButton.className += 'clickable';
-    }
-  });
-}
-
-function removeGameButtonLights() {
-  colors.forEach(color => {
-    let targetButton = document.getElementById(color);
-
-    targetButton.className = '';
-  });
-}
-
 function addGreenListeners() {
   let green = document.getElementById('green');
 
