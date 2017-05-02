@@ -1,3 +1,6 @@
+// count that is displayed on simon board
+let count = 1;
+
 function togglePower() {
   let toggle = false;
   let countDisplay = document.getElementById('count');
@@ -54,6 +57,7 @@ function powerUp(countDisplay, powerStatus) {
 
 function startToggle(startStatus) {
   let startSwitch = false;
+  let countDisplay = document.getElementById('count');
 
   return function() {
     if (startSwitch) {
@@ -61,6 +65,7 @@ function startToggle(startStatus) {
       startSwitch = false;
     } else {
       startStatus.style.backgroundColor = 'red';
+      updateCountDisplay(count);
       startGameplay();
       startSwitch = true;
     }
@@ -79,4 +84,10 @@ function strictToggle(strictStatus) {
       strictSwitch = true;
     }
   }
+}
+
+function updateCountDisplay(newCount) {
+  let countDisplay = document.getElementById('count');
+
+  countDisplay.innerText = newCount;
 }

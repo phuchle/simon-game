@@ -1,5 +1,3 @@
-let count = 1;
-
 function addPowerListener() {
   let powerButton = document.getElementById('power-button');
   let togglePowerButton = togglePower();

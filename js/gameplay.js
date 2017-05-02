@@ -1,6 +1,6 @@
 let pattern = [];
 let userPattern = [];
-let waitForUserInput;
+let inputTimeout;
 
 const colors = ['green', 'red', 'yellow', 'blue'];
 const sounds = {
@@ -72,7 +72,6 @@ function setPlayThroughInterval() {
       window.clearInterval(playThrough);
     }
   }, 1000);
-
 }
 
 function activateGameButtons() {
@@ -83,87 +82,21 @@ function activateGameButtons() {
   addBlueListeners();
 }
 
-function addGameButtonLights() {
-  colors.forEach(color => {
-    let docBody = document.body;
-    let targetButton = document.getElementById(color);
-
-    if (docBody.classList) { // modern browser
-      targetButton.classList.add('clickable');
-    } else { // IE8 support
-      targetButton.className += 'clickable';
-    }
-  });
-}
-
-function removeGameButtonLights() {
-  colors.forEach(color => {
-    let targetButton = document.getElementById(color);
-
-    targetButton.className = '';
-  });
-}
-
-function addGreenListeners() {
-  let green = document.getElementById('green');
-
-  green.addEventListener('click', () => {
-    userPattern.push(green.id);
-    click.green(green);
-    checkUserPattern();
-  });
-}
-
-function addRedListeners() {
-  let red = document.getElementById('red');
-
-  red.addEventListener('click', () => {
-    userPattern.push(red.id);
-    click.red(red);
-    checkUserPattern();
-  });
-}
-
-function addYellowListeners() {
-  let yellow = document.getElementById('yellow');
-
-  yellow.addEventListener('click', () => {
-    userPattern.push(yellow.id);
-    click.yellow(yellow);
-    checkUserPattern();
-  });
-}
-
-function addBlueListeners() {
-  let blue = document.getElementById('blue');
-
-  blue.addEventListener('click', () => {
-    userPattern.push(blue.id);
-    click.blue(blue);
-    checkUserPattern();
-  });
-}
-
 function checkUserPattern() {
-  if (userPattern.length !== pattern.length) {
-    waitForUserInput = window.setTimeout( () => {
-      debugger;
-      sounds.wrongAnswer.play()
-      window.clearInterval(waitForUserInput);
-      setPlayThroughInterval();
-      checkUserPattern();
-    }, 2000);
-  } else {
-    window.clearInterval(waitForUserInput);
+  // if (userPattern.length === pattern.length) {
+  //   window.clearTimeout(inputTimeout);
+
     if (isCurrentUserPatternCorrect()) {
+      userPattern = [];
       makePattern();
+      updateCountDisplay(count++);
       setPlayThroughInterval();
-      checkUserPattern();
+    } else {
+      sounds.wrongAnswer.play();
+      setPlayThroughInterval();
     }
-  }
-
-
 }
+// }
 
 function isCurrentUserPatternCorrect() {
   let verdict = true;
@@ -173,6 +106,17 @@ function isCurrentUserPatternCorrect() {
       verdict = false;
     }
   }
-  console.log(verdict);
+
   return verdict;
 }
+
+// if the user fails to click within a certain period of time, the game will end
+// function waitForUserInput() {
+//   if (userPattern.length !== pattern.length) {
+//     inputTimeout = window.setTimeout( () => {
+//       debugger;
+//       sounds.wrongAnswer.play()
+//       window.clearTimeout(inputTimeout);
+//     }, 5000);
+//   }
+// }
