@@ -76,9 +76,11 @@ function strictToggle(strictStatus) {
   return function() {
     if (strictSwitch) {
       strictStatus.style.backgroundColor = '#333';
+      strict = false;
       strictSwitch = false;
     } else {
       strictStatus.style.backgroundColor = 'red';
+      strict = true;
       strictSwitch = true;
     }
   }

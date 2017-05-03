@@ -118,15 +118,11 @@ function checkUserPattern() {
       updateCountDisplay();
       setPlayThroughInterval();
     } else {
-      sounds.wrongAnswer.play();
-      userPattern = [];
-      setPlayThroughInterval();
+      handleWrongAnswer();
     }
   } else {
     if (!isCurrentUserPatternCorrect()) {
-      sounds.wrongAnswer.play();
-      userPattern = [];
-      setPlayThroughInterval();
+      handleWrongAnswer();
     }
   }
 }
@@ -141,6 +137,18 @@ function isCurrentUserPatternCorrect() {
   }
 
   return verdict;
+}
+
+function handleWrongAnswer() {
+  sounds.wrongAnswer.play();
+  userPattern = [];
+
+  if (strict) {
+    pattern = [];
+    makePattern();
+  }
+
+  setPlayThroughInterval();
 }
 
 // if the user fails to click within a certain period of time, the game will end
