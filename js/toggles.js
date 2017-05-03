@@ -38,7 +38,11 @@ function togglePower() {
   };
 }
 
-function powerDown(countDisplay, powerStatus, startSTatus) {
+function powerDown(countDisplay, powerStatus, startStatus) {
+  if (patternInterval){
+    window.clearInterval(patternInterval);
+    patternInterval = 0;
+  }
   count = 1;
   countDisplay.style.color = '#950000'
   countDisplay.innerText = '-';
@@ -57,7 +61,7 @@ function startToggle(evt) {
   count = 1;
   pattern = [];
   userPattern = [];
-  
+
   if (patternInterval){
     window.clearInterval(patternInterval);
     patternInterval = 0;
