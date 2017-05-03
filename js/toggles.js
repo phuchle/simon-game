@@ -11,22 +11,17 @@ function togglePower() {
   let startStatus = document.getElementById('start-status');
   let strictStatus = document.getElementById('strict-status');
 
-  let toggleStartButton = startToggle(startStatus);
   let toggleStrictButton = strictToggle(strictStatus);
 
   return function() {
     if (toggle) {
-      // clear any caches
-      if (startStatus.style.backgroundColor === 'red') {
-        toggleStartButton(startStatus);
-      }
       if (strictStatus.style.backgroundColor === 'red') {
         toggleStrictButton(strictStatus);
       }
 
-      powerDown(countDisplay, powerStatus);
+      powerDown(countDisplay, powerStatus, startStatus);
 
-      startButton.removeEventListener('click', toggleStartButton);
+      startButton.removeEventListener('click', startToggle);
       strictButton.removeEventListener('click', toggleStrictButton);
 
       toggle = false;
@@ -34,7 +29,8 @@ function togglePower() {
       //
       powerUp(countDisplay, powerStatus);
 
-      startButton.addEventListener('click', toggleStartButton);
+      startButton.addEventListener('click', startToggle);
+      startButton.status = startStatus;
       strictButton.addEventListener('click', toggleStrictButton);
 
       toggle = true;
@@ -42,11 +38,12 @@ function togglePower() {
   };
 }
 
-function powerDown(countDisplay, powerStatus) {
-  count = 0;
+function powerDown(countDisplay, powerStatus, startSTatus) {
+  count = 1;
   countDisplay.style.color = '#950000'
   countDisplay.innerText = '-';
   powerStatus.style.backgroundColor = '#333';
+  startStatus.style.backgroundColor = '#333';
 }
 
 function powerUp(countDisplay, powerStatus) {
@@ -55,21 +52,18 @@ function powerUp(countDisplay, powerStatus) {
   powerStatus.style.backgroundColor = 'red';
 }
 
-function startToggle(startStatus) {
-  let startSwitch = false;
-  let countDisplay = document.getElementById('count');
-
-  return function() {
-    if (startSwitch) {
-      startStatus.style.backgroundColor = '#333';
-      startSwitch = false;
-    } else {
-      startStatus.style.backgroundColor = 'red';
-      updateCountDisplay(count);
-      startGameplay();
-      startSwitch = true;
-    }
+function startToggle(evt) {
+  evt.target.status.style.backgroundColor = 'red';
+  count = 1;
+  pattern = [];
+  userPattern = [];
+  
+  if (patternInterval){
+    window.clearInterval(patternInterval);
+    patternInterval = 0;
   }
+  updateCountDisplay();
+  startGameplay();
 }
 
 function strictToggle(strictStatus) {
@@ -86,8 +80,8 @@ function strictToggle(strictStatus) {
   }
 }
 
-function updateCountDisplay(newCount) {
+function updateCountDisplay() {
   let countDisplay = document.getElementById('count');
 
-  countDisplay.innerText = newCount;
+  countDisplay.innerText = count;
 }

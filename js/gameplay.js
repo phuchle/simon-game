@@ -1,6 +1,7 @@
 let pattern = [];
 let userPattern = [];
-let inputTimeout;
+// let inputTimeout;
+let patternInterval;
 let strict = false;
 
 const colors = ['green', 'red', 'yellow', 'blue'];
@@ -28,32 +29,32 @@ const divs = {
 }
 
 const click = {
-  green: function (target) {
-    target.style.backgroundColor = '#a7ffa7';
+  green: function () {
+    divs.green().style.backgroundColor = '#a7ffa7';
     sounds.green.play();
     setTimeout( ()=> {
-      target.style.backgroundColor = '#41ff41';
+      divs.green().style.backgroundColor = '#41ff41';
     }, 500);
   },
-  red: function (target) {
+  red: function () {
     sounds.red.play();
-    target.style.backgroundColor = '#ff7676';
+    divs.red().style.backgroundColor = '#ff7676';
     setTimeout( ()=> {
-      target.style.backgroundColor = 'red';
+      divs.red().style.backgroundColor = 'red';
     }, 500);
   },
-  yellow: function (target) {
-    target.style.backgroundColor = '#fff9c4';
+  yellow: function () {
+    divs.yellow().style.backgroundColor = '#fff9c4';
     sounds.yellow.play();
     setTimeout( ()=> {
-      target.style.backgroundColor = '#ffe400';
+      divs.yellow().style.backgroundColor = '#ffe400';
     }, 500);
   },
-  blue: function (target) {
-    target.style.backgroundColor = '#88b5ff';
+  blue: function () {
+    divs.blue().style.backgroundColor = '#88b5ff';
     sounds.blue.play();
     setTimeout( ()=> {
-      target.style.backgroundColor = '#0079ff';
+      divs.blue().style.backgroundColor = '#0079ff';
     }, 500);
   }
 };
@@ -70,16 +71,18 @@ function makePattern() {
 }
 
 function setPlayThroughInterval() {
+  // deactivateGameButtons();
+  // for some reason deactivateGameButtons doesn't work
   let i = 0;
-  let patternInterval = window.setInterval(() => {
-    let targetButton = document.getElementById(pattern[i]);
-    click[pattern[i]](targetButton);
+  patternInterval = window.setInterval(() => {
+    click[pattern[i]]();
     i++
 
     if (i === pattern.length) {
       window.clearInterval(patternInterval);
     }
   }, 1250);
+  // activateGameButtons();
 }
 
 function activateGameButtons() {
@@ -90,13 +93,6 @@ function activateGameButtons() {
   });
 }
 
-function gameButtonClick(e) {
-  userPattern.push(e.target.id);
-  click[e.target.id](e.target);
-  window.clearTimeout(inputTimeout);
-  checkUserPattern();
-}
-
 function deactivateGameButtons() {
   let colorDivs = [divs.green(), divs.red(), divs.yellow(), divs.blue()];
 
@@ -105,12 +101,21 @@ function deactivateGameButtons() {
   });
 }
 
+function gameButtonClick(e) {
+  userPattern.push(e.target.id);
+  click[e.target.id](e.target);
+  // window.clearTimeout(inputTimeout);
+  checkUserPattern();
+}
+
+
 function checkUserPattern() {
   if (userPattern.length === pattern.length) {
     if (isCurrentUserPatternCorrect()) {
       userPattern = [];
       makePattern();
-      updateCountDisplay(count++);
+      count++;
+      updateCountDisplay();
       setPlayThroughInterval();
     } else {
       sounds.wrongAnswer.play();
