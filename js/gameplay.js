@@ -60,7 +60,6 @@ const click = {
 };
 
 function startGameplay() {
-  activateGameButtons();
   makePattern();
   setPlayThroughInterval();
 }
@@ -81,7 +80,7 @@ function setPlayThroughInterval() {
     if (i === pattern.length) {
       window.clearInterval(patternInterval);
     }
-  }, 1250);
+  }, 1000);
   // activateGameButtons();
 }
 
@@ -108,15 +107,10 @@ function gameButtonClick(e) {
   checkUserPattern();
 }
 
-
 function checkUserPattern() {
   if (userPattern.length === pattern.length) {
     if (isCurrentUserPatternCorrect()) {
-      userPattern = [];
-      makePattern();
-      count++;
-      updateCountDisplay();
-      setPlayThroughInterval();
+      pattern.length === 20 ? handleWinCondition() : handleCorrectAnswer();
     } else {
       handleWrongAnswer();
     }
@@ -139,6 +133,14 @@ function isCurrentUserPatternCorrect() {
   return verdict;
 }
 
+function handleCorrectAnswer() {
+  userPattern = [];
+  makePattern();
+  count++;
+  updateCountDisplay();
+  setPlayThroughInterval();
+}
+
 function handleWrongAnswer() {
   sounds.wrongAnswer.play();
   userPattern = [];
@@ -149,6 +151,44 @@ function handleWrongAnswer() {
   }
 
   setPlayThroughInterval();
+}
+
+function handleWinCondition() {
+  updateCountDisplay('WIN');
+  flashWin();
+}
+
+function flashWin() {
+  let countDisplay = document.getElementById('count');
+  let docBody = document.body;
+
+  if (docBody.classList) { // modern browser
+    countDisplay.classList.add('blink');
+  } else { // IE8 support
+    countDisplay.className += 'blink';
+  }
+  window.setTimeout(() => {
+    if (docBody.classList) {
+      countDisplay.classList.remove('blink');
+    } else {
+      countDisplay.className = '';
+    }
+    restartGame();
+  }, 5000);
+}
+
+function restartGame() {
+  count = 1;
+  pattern = [];
+  userPattern = [];
+
+  if (patternInterval){
+    window.clearInterval(patternInterval);
+    patternInterval = 0;
+  }
+  updateCountDisplay();
+  activateGameButtons();
+  startGameplay();
 }
 
 // if the user fails to click within a certain period of time, the game will end

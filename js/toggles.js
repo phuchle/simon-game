@@ -58,16 +58,7 @@ function powerUp(countDisplay, powerStatus) {
 
 function startToggle(evt) {
   evt.target.status.style.backgroundColor = 'red';
-  count = 1;
-  pattern = [];
-  userPattern = [];
-
-  if (patternInterval){
-    window.clearInterval(patternInterval);
-    patternInterval = 0;
-  }
-  updateCountDisplay();
-  startGameplay();
+  restartGame();
 }
 
 function strictToggle(strictStatus) {
@@ -86,8 +77,8 @@ function strictToggle(strictStatus) {
   }
 }
 
-function updateCountDisplay() {
+function updateCountDisplay(newCount = count) {
   let countDisplay = document.getElementById('count');
 
-  countDisplay.innerText = count;
+  countDisplay.innerText = newCount;
 }

@@ -142,6 +142,53 @@ body {
   font-size: 1.5em;
 }
 
+.blink {
+  -moz-animation-duration: 1000ms;
+  -moz-animation-name: blink;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: alternate;
+
+  -webkit-animation-duration: 400ms;
+  -webkit-animation-name: blink;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+
+  animation-duration: 400ms;
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@-moz-keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 @media screen and (max-width: 500px) {
   #outer-container {
     transform: scale(0.6);
