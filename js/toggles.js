@@ -38,7 +38,11 @@ function togglePower() {
   };
 }
 
-function powerDown(countDisplay, powerStatus, startSTatus) {
+function powerDown(countDisplay, powerStatus, startStatus) {
+  if (patternInterval){
+    window.clearInterval(patternInterval);
+    patternInterval = 0;
+  }
   count = 1;
   countDisplay.style.color = '#950000'
   countDisplay.innerText = '-';
@@ -54,16 +58,7 @@ function powerUp(countDisplay, powerStatus) {
 
 function startToggle(evt) {
   evt.target.status.style.backgroundColor = 'red';
-  count = 1;
-  pattern = [];
-  userPattern = [];
-  
-  if (patternInterval){
-    window.clearInterval(patternInterval);
-    patternInterval = 0;
-  }
-  updateCountDisplay();
-  startGameplay();
+  restartGame();
 }
 
 function strictToggle(strictStatus) {
@@ -72,16 +67,18 @@ function strictToggle(strictStatus) {
   return function() {
     if (strictSwitch) {
       strictStatus.style.backgroundColor = '#333';
+      strict = false;
       strictSwitch = false;
     } else {
       strictStatus.style.backgroundColor = 'red';
+      strict = true;
       strictSwitch = true;
     }
   }
 }
 
-function updateCountDisplay() {
+function updateCountDisplay(newCount = count) {
   let countDisplay = document.getElementById('count');
 
-  countDisplay.innerText = count;
+  countDisplay.innerText = newCount;
 }
